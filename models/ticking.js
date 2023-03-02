@@ -38,6 +38,9 @@ const { DataTypes } = require("sequelize");
 const Ticking = db.define(
   "ticking",
   {
+    name: {
+      type: DataTypes.STRING,
+    },
     sound: {
       type: DataTypes.STRING,
       allowNull: false,

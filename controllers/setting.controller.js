@@ -8,7 +8,7 @@ const User = require("../models/user");
 exports.getSetting = async (req, res, next) => {
   try {
     const userId = req.user.dataValues.id;
-    const setting = await Setting.findAll({
+    const setting = await Setting.findOne({
       where: { userId: userId },
       include: [
         {

@@ -27,6 +27,9 @@ const { DataTypes } = require("sequelize");
 const Alarm = db.define(
   "alarm",
   {
+    name: {
+      type: DataTypes.STRING,
+    },
     sound: {
       type: DataTypes.STRING,
       allowNull: false,
