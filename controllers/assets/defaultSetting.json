@@ -1,5 +1,5 @@
 {
-  "tabs": [
+  "tabsData": [
     {
       "name": "Pomodoro",
       "minute": 25,
@@ -29,6 +29,6 @@
   "alarmId": 1,
   "alarmVolume": 0.5,
   "alarmSoundRepeat": 1,
-  "tickingId": 1,
-  "tickingVolume": 0.5
+  "tickingVolume": 0.5,
+  "tickingId": 1
 }

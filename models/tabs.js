@@ -28,10 +28,4 @@ const Tabs = db.define(
   { timestamps: false }
 );
 
-Tabs.sync()
-  //   .then(() => {
-  //     Tabs.bulkCreate(require("../defaultSetting.json").tabs)
-  //   })
-  .catch((error) => console.log(error));
-
 module.exports = Tabs;

@@ -1,12 +1,11 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
-const Setting = require("./setting");
 
 const User = db.define(
   "users",
   {
     id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
     },
@@ -25,10 +24,5 @@ const User = db.define(
   },
   { timestamps: false, freezeTableName: true }
 );
-
-Setting.hasOne(User);
-User.belongsTo(Setting);
-
-User.sync({ alter: true }).then(() => console.log("Sync User completed"));
 
 module.exports = User;

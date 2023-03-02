@@ -2,6 +2,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { v4: uuidv4 } = require("uuid");
+const Setting = require("../models/setting");
+const Tabs = require("../models/tabs");
+const Alarm = require("../models/alarm");
+const Ticking = require("../models/ticking");
 
 // Create user
 exports.signup = async (req, res, next) => {
@@ -22,20 +26,38 @@ exports.signup = async (req, res, next) => {
       throw error;
     }
 
+    // Create user account
     const hashedPw = await bcrypt.hash(password, 12);
-
-    await User.create({
+    const newUser = await User.create({
       id: uuidv4(),
       name: name,
       email: email,
       password: hashedPw,
-    })
-      .then(() => {
-        res.status(200).json({ message: "Created successfully!" });
-      })
-      .catch((error) => {
-        throw error;
-      });
+    });
+
+    // Create default setting for each user
+    // const { alarmSound, tickingSound } = require("./assets/sounds.json");
+    // await Alarm.bulkCreate(alarmSound);
+    // await Ticking.bulkCreate(tickingSound);
+
+    const {
+      tabsData,
+      ...settingData
+    } = require("./assets/defaultSetting.json");
+
+    const setting = await Setting.create({
+      ...settingData,
+      id: uuidv4(),
+      userId: newUser.id,
+    });
+    console.log(tabsData);
+    await Tabs.bulkCreate(
+      tabsData.map((tab) => ({ ...tab, settingId: setting.id }))
+    );
+
+    res.status(200).json({
+      message: "Created successfully!",
+    });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
