@@ -1,4 +1,4 @@
-const db = require("../config/database");
+const db = require("../../config/database");
 const { DataTypes } = require("sequelize");
 
 // const soundsData = [
@@ -27,6 +27,12 @@ const { DataTypes } = require("sequelize");
 const Alarm = db.define(
   "alarm",
   {
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+      unique: true,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
     },

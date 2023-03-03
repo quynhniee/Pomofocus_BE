@@ -1,52 +1,33 @@
-const db = require("../config/database");
 const { DataTypes } = require("sequelize");
-const Tabs = require("./tabs");
-const Alarm = require("./alarm");
-const Ticking = require("./ticking");
-const User = require("./user");
+const db = require("../../config/database");
+const Tabs = require("../setting/tabs");
+const Alarm = require("../setting/alarm");
+const Ticking = require("../setting/ticking");
+const Setting = require("../setting/setting");
+const Task = require("../task/task");
 
-const Setting = db.define(
-  "setting",
+const User = db.define(
+  "users",
   {
     id: {
       type: DataTypes.STRING,
+      allowNull: false,
       primaryKey: true,
-      unique: true,
+    },
+    name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    autoStartBreak: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    autoStarPomodoro: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    longBreakInterval: {
-      type: DataTypes.INTEGER,
-      defaultValue: 4,
-    },
-    autoSwitchTasks: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    alarmVolume: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0.5,
-    },
-    alarmSoundRepeat: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
-    },
-    tickingVolume: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0.5,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
-  {
-    timestamps: false,
-    freezeTableName: true,
-  }
+  { timestamps: false, freezeTableName: true }
 );
 
 // Associate Setting - Tabs (1-n)
@@ -65,9 +46,15 @@ Setting.belongsTo(Ticking);
 User.hasOne(Setting);
 Setting.belongsTo(User);
 
+// Associate User - Tasks (1-n)
+User.hasMany(Task);
+Task.belongsTo(User);
+
 // Sync models
 User.sync({ alter: true })
   .then(() => console.log("Sync User"))
+  .then(() => Task.sync({ alter: true }))
+  .then(() => console.log("Sync Task"))
   .then(() => Alarm.sync({ alter: true }))
   .then(() => console.log("Sync Alarm"))
   .then(() => Ticking.sync({ alter: true }))
@@ -76,7 +63,6 @@ User.sync({ alter: true })
   .then(() => console.log("Sync Setting"))
   .then(() => Tabs.sync({ alter: true }))
   .then(() => console.log("Sync Tabs"))
-
   .catch((error) => console.log(error));
 
-module.exports = Setting;
+module.exports = User;

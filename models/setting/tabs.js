@@ -1,4 +1,4 @@
-const db = require("../config/database");
+const db = require("../../config/database");
 const { DataTypes } = require("sequelize");
 
 const Tabs = db.define(

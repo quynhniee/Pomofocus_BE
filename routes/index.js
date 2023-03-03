@@ -1,11 +1,8 @@
 const express = require("express");
-
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Welcome");
-});
+router.use("/auth", require("./auth.route"));
+router.use("/setting", require("./setting.route"));
+router.use("/task", require("./task.route"));
 
-router.use("/", require("./auth.route"));
-router.use("/", require("./setting.route"));
 module.exports = router;
