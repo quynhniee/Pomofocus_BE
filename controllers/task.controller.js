@@ -50,7 +50,7 @@ exports.update = async (req, res, next) => {
   try {
     const id = req.params.id;
     const updatedTask = req.body;
-    const task = await Task.update(updatedTask, {
+    await Task.update(updatedTask, {
       where: {
         id: id,
       },
@@ -58,7 +58,6 @@ exports.update = async (req, res, next) => {
 
     res.status(200).json({
       message: "Update task successfully!",
-      task: task,
     });
   } catch (error) {
     if (!error.statusCode) {

@@ -1,7 +1,7 @@
-const Alarm = require("../models/setting/alarm");
+const Alarm = require("../models/alarm/alarm");
 const Setting = require("../models/setting/setting");
 const Tabs = require("../models/setting/tabs");
-const Ticking = require("../models/setting/ticking");
+const Ticking = require("../models/ticking/ticking");
 const User = require("../models/user/user");
 
 // ==================Nested Setting==============
@@ -13,14 +13,6 @@ exports.getTotalSetting = async (req, res, next) => {
     const setting = await Setting.findOne({
       where: { userId: userId },
       include: [
-        {
-          model: Alarm,
-          required: true,
-        },
-        {
-          model: Ticking,
-          required: true,
-        },
         {
           model: Tabs,
           required: true,
@@ -43,16 +35,6 @@ exports.getSetting = async (req, res, next) => {
     const userId = req.user.dataValues.id;
     const setting = await Setting.findOne({
       where: { userId: userId },
-      include: [
-        {
-          model: Alarm,
-          required: true,
-        },
-        {
-          model: Ticking,
-          required: true,
-        },
-      ],
     });
 
     res.status(200).send(setting);
@@ -70,13 +52,12 @@ exports.updateSetting = async (req, res, next) => {
     const userId = req.user.dataValues.id;
     const updatedSetting = req.body;
 
-    const setting = await Setting.update(updatedSetting, {
+    await Setting.update(updatedSetting, {
       where: { userId: userId },
     });
 
     res.status(200).json({
       message: "Update setting successfully!",
-      setting: setting,
     });
   } catch (error) {
     error.statusCode = error.statusCode || 500;

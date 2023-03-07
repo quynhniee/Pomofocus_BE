@@ -26,9 +26,9 @@
   "autoStartPomodoro": false,
   "longBreakInterval": 4,
   "autoSwitchTasks": false,
-  "alarmId": 1,
+  "alarmSound": "https://kekkekew-my.sharepoint.com/:u:/g/personal/sirq_kekkekew_onmicrosoft_com/EQgCDM8kNaBGvW60kQIPjRcBdg5EiIukb8jFtLJV9LXTSg?e=W9nsee",
   "alarmVolume": 0.5,
   "alarmSoundRepeat": 1,
   "tickingVolume": 0.5,
-  "tickingId": 1
+  "tickingSound": "none"
 }

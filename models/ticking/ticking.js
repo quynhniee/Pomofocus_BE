@@ -50,4 +50,8 @@ const Ticking = db.define(
   { timestamps: false, freezeTableName: true }
 );
 
+Ticking.sync({ alter: true })
+  .catch((error) => console.log(error))
+  .then(() => console.log("Sync Ticking"));
+
 module.exports = Ticking;

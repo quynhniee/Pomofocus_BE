@@ -1,8 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../../config/database");
 const Tabs = require("../setting/tabs");
-const Alarm = require("../setting/alarm");
-const Ticking = require("../setting/ticking");
 const Setting = require("../setting/setting");
 const Task = require("../task/task");
 
@@ -34,14 +32,6 @@ const User = db.define(
 Setting.hasMany(Tabs);
 Tabs.belongsTo(Setting);
 
-// Associate Setting - Alarm (1-1)
-Alarm.hasOne(Setting);
-Setting.belongsTo(Alarm);
-
-// Associate Setting - Ticking (1-1)
-Ticking.hasOne(Setting);
-Setting.belongsTo(Ticking);
-
 // Associate Setting - User (1-1)
 User.hasOne(Setting);
 Setting.belongsTo(User);
@@ -55,10 +45,6 @@ User.sync({ alter: true })
   .then(() => console.log("Sync User"))
   .then(() => Task.sync({ alter: true }))
   .then(() => console.log("Sync Task"))
-  .then(() => Alarm.sync({ alter: true }))
-  .then(() => console.log("Sync Alarm"))
-  .then(() => Ticking.sync({ alter: true }))
-  .then(() => console.log("Sync Ticking"))
   .then(() => Setting.sync({ alter: true }))
   .then(() => console.log("Sync Setting"))
   .then(() => Tabs.sync({ alter: true }))

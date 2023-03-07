@@ -26,6 +26,10 @@ const Setting = db.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    alarmSound: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     alarmVolume: {
       type: DataTypes.FLOAT,
       defaultValue: 0.5,
@@ -33,6 +37,10 @@ const Setting = db.define(
     alarmSoundRepeat: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
+    },
+    tickingSound: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     tickingVolume: {
       type: DataTypes.FLOAT,

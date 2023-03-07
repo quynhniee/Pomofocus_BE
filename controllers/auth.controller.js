@@ -4,8 +4,8 @@ const User = require("../models/user/user");
 const { v4: uuidv4 } = require("uuid");
 const Setting = require("../models/setting/setting");
 const Tabs = require("../models/setting/tabs");
-const Alarm = require("../models/setting/alarm");
-const Ticking = require("../models/setting/ticking");
+const Alarm = require("../models/alarm/alarm");
+const Ticking = require("../models/ticking/ticking");
 
 // Create user
 exports.signup = async (req, res, next) => {
@@ -36,7 +36,7 @@ exports.signup = async (req, res, next) => {
     });
 
     // Create default setting for each user
-    const { alarmSound, tickingSound } = require("./assets/sounds.json");
+    // const { alarmSound, tickingSound } = require("./assets/sounds.json");
     // await Alarm.bulkCreate(alarmSound);
     // await Ticking.bulkCreate(tickingSound);
 

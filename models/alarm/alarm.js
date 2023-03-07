@@ -27,21 +27,19 @@ const { DataTypes } = require("sequelize");
 const Alarm = db.define(
   "alarm",
   {
-    id: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      unique: true,
-      allowNull: false,
-    },
     name: {
       type: DataTypes.STRING,
     },
     sound: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   { timestamps: false, freezeTableName: true }
 );
 
+Alarm.sync({ alter: true })
+  .then(() => console.log("Sync Alarm"))
+  .catch((error) => console.log(error));
 module.exports = Alarm;
