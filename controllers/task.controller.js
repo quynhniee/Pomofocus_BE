@@ -36,7 +36,7 @@ exports.getAll = async (req, res, next) => {
       where: { userId: userId },
     });
 
-    res.status(200).json({ tasksList: tasksList });
+    res.status(200).json(tasksList);
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;

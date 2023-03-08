@@ -4,9 +4,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./config/database");
 const app = express();
+const cors = require("cors");
 
 // content-type: application/json
 app.use(bodyParser.json());
+
+// allow cors
+app.use(cors());
 
 // Routes
 app.use("/api", require("./routes"));
