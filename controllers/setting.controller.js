@@ -18,6 +18,7 @@ exports.getTotalSetting = async (req, res, next) => {
           required: true,
         },
       ],
+      order: [[Tabs, "order", "ASC"]],
     });
 
     res.status(200).send(setting);
@@ -78,9 +79,7 @@ exports.getTabs = async (req, res, next) => {
       order: [["order", "ASC"]],
     });
 
-    res.status(200).json({
-      tabs: tabs,
-    });
+    res.status(200).json(tabs);
   } catch (error) {
     if (!error.statusCode) error.statusCode = 500;
     next(error);
@@ -113,7 +112,7 @@ exports.getAlarm = async (req, res, next) => {
   try {
     const sounds = await Alarm.findAll();
 
-    res.status(200).json({ sounds: sounds });
+    res.status(200).json(sounds);
   } catch (error) {
     if (!error.statusCode) error.statusCode = 500;
     next(error);
@@ -126,7 +125,7 @@ exports.getTicking = async (req, res, next) => {
   try {
     const sounds = await Ticking.findAll();
 
-    res.status(200).json({ sounds: sounds });
+    res.status(200).json(sounds);
   } catch (error) {
     if (!error.statusCode) error.statusCode = 500;
     next(error);
