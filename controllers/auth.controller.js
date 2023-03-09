@@ -51,7 +51,12 @@ exports.signup = async (req, res, next) => {
       userId: newUser.id,
     });
     await Tabs.bulkCreate(
-      tabsData.map((tab) => ({ ...tab, settingId: setting.id, id: uuidv4() }))
+      tabsData.map((tab, index) => ({
+        ...tab,
+        settingId: setting.id,
+        id: uuidv4(),
+        order: index,
+      }))
     );
 
     res.status(200).json({

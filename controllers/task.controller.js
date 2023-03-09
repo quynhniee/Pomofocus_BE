@@ -34,6 +34,7 @@ exports.getAll = async (req, res, next) => {
     const userId = req.user.dataValues.id;
     const tasksList = await Task.findAll({
       where: { userId: userId },
+      order: [["createdAt", "ASC"]],
     });
 
     res.status(200).json(tasksList);

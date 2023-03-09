@@ -10,6 +10,10 @@ const Tabs = db.define(
       allowNull: false,
       unique: true,
     },
+    order: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     themeColor: {
       type: DataTypes.STRING,
       allowNull: false,

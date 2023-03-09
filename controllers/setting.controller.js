@@ -73,7 +73,10 @@ exports.getTabs = async (req, res, next) => {
     const userId = req.user.dataValues.id;
     const setting = await Setting.findOne({ where: { userId: userId } });
 
-    const tabs = await Tabs.findAll({ where: { settingId: setting.id } });
+    const tabs = await Tabs.findAll({
+      where: { settingId: setting.id },
+      order: [["order", "ASC"]],
+    });
 
     res.status(200).json({
       tabs: tabs,
