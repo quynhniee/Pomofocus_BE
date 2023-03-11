@@ -15,4 +15,7 @@ router.post("/", isAuth, taskController.create);
 // delete task
 router.delete("/:id", isAuth, taskController.delete);
 
+// delete all task
+router.delete("/", isAuth, taskController.deleteAll);
+
 module.exports = router;

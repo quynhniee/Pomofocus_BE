@@ -4,12 +4,6 @@ const { DataTypes } = require("sequelize");
 const Setting = db.define(
   "setting",
   {
-    id: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      unique: true,
-      allowNull: false,
-    },
     autoStartBreak: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

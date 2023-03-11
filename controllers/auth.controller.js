@@ -47,15 +47,12 @@ exports.signup = async (req, res, next) => {
 
     const setting = await Setting.create({
       ...settingData,
-      id: uuidv4(),
       userId: newUser.id,
     });
     await Tabs.bulkCreate(
-      tabsData.map((tab, index) => ({
+      tabsData.map((tab) => ({
         ...tab,
         settingId: setting.id,
-        id: uuidv4(),
-        order: index,
       }))
     );
 

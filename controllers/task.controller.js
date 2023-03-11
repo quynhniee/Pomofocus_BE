@@ -1,5 +1,4 @@
 const Task = require("../models/task/task");
-const { v4: uuidv4 } = require("uuid");
 
 // create new task
 exports.create = async (req, res, next) => {
@@ -7,7 +6,6 @@ exports.create = async (req, res, next) => {
     const { content, isActive, isCompleted, act, EP } = req.body;
     const userId = req.user.dataValues.id;
     const task = await Task.create({
-      id: uuidv4(),
       content: content,
       isActive: isActive,
       isCompleted: isCompleted,
@@ -79,6 +77,25 @@ exports.delete = async (req, res, next) => {
     });
 
     res.status(200).json({ message: "Delete task successfully!" });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+// delete all task
+exports.deleteAll = async (req, res, next) => {
+  try {
+    const userId = req.user.dataValues.id;
+    await Task.destroy({
+      where: {
+        userId: userId,
+      },
+    });
+
+    res.status(200).json({ message: "Delete all task successfully!" });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;

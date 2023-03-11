@@ -2,12 +2,6 @@ const { DataTypes } = require("sequelize");
 const db = require("../../config/database");
 
 const Task = db.define("tasks", {
-  id: {
-    type: DataTypes.STRING,
-    primaryKey: true,
-    allowNull: false,
-    unique: true,
-  },
   content: {
     type: DataTypes.STRING,
   },

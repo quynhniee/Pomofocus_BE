@@ -18,7 +18,6 @@ exports.getTotalSetting = async (req, res, next) => {
           required: true,
         },
       ],
-      order: [[Tabs, "order", "ASC"]],
     });
 
     res.status(200).send(setting);
@@ -76,7 +75,6 @@ exports.getTabs = async (req, res, next) => {
 
     const tabs = await Tabs.findAll({
       where: { settingId: setting.id },
-      order: [["order", "ASC"]],
     });
 
     res.status(200).json(tabs);
@@ -90,14 +88,16 @@ exports.getTabs = async (req, res, next) => {
 exports.updateTabs = async (req, res, next) => {
   try {
     const updatedTabs = req.body;
+    const userId = req.user.dataValues.id;
+    const setting = await Setting.findOne({ where: { userId: userId } });
+    const tabs = await Tabs.findAll({
+      where: { settingId: setting.id },
+    });
 
-    for (const tab of updatedTabs) {
-      await Tabs.update(tab, {
-        where: {
-          id: tab.id,
-        },
-      });
-    }
+    tabs.forEach(async (tab, index) => {
+      await tab.update(updatedTabs[index]);
+      await tab.save();
+    });
 
     res.status(200).json({ message: "Update tabs setting successfully!" });
   } catch (error) {

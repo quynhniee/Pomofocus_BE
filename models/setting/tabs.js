@@ -4,16 +4,6 @@ const { DataTypes } = require("sequelize");
 const Tabs = db.define(
   "tabs",
   {
-    id: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      allowNull: false,
-      unique: true,
-    },
-    order: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     themeColor: {
       type: DataTypes.STRING,
       allowNull: false,
