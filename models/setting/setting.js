@@ -8,7 +8,7 @@ const Setting = db.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    autoStarPomodoro: {
+    autoStartPomodoro: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },

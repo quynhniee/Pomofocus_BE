@@ -36,9 +36,13 @@ exports.signup = async (req, res, next) => {
     });
 
     // Create default setting for each user
-    // const { alarmSound, tickingSound } = require("./assets/sounds.json");
-    // await Alarm.bulkCreate(alarmSound);
-    // await Ticking.bulkCreate(tickingSound);
+    const { alarmSound, tickingSound } = require("./assets/sounds.json");
+    const alarms = await Alarm.findAll();
+    if (!alarms || alarms.length === 0) await Alarm.bulkCreate(alarmSound);
+
+    const tickings = await Ticking.findAll();
+    if (!tickings || tickings.length === 0)
+      await Ticking.bulkCreate(tickingSound);
 
     const {
       tabsData,
